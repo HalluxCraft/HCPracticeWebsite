@@ -71,6 +71,19 @@ body {
 .navbar .navbar-nav a:hover::after {
     transform: scaleX(0.5);
 }
+
+/* Footer */
+footer {
+    background-color: var(--primary);
+    text-align: center;
+    padding: 1rem 0 1rem;
+    margin-top: 2rem;
+}
+
+footer .credit {
+    color: var(--bg);
+    font-weight: 1000;  
+}
   
 /* Home Section */
 @keyframes fadeIn {
