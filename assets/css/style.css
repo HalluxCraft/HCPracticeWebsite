@@ -86,7 +86,7 @@ body {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background-image: url("../images/Background.jpg");
+    background-image: url("https://capsule-render.vercel.app/api?type=waving&height=290&color=gradient&fontAlign=50&animation=fadeIn&rotate=0");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
