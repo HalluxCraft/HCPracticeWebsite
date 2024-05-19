@@ -1,1 +1,2 @@
-[IMAGE] "Background" : https://alphacoders.com/minecraft-wallpapers
+[IMAGE] "background" : www.peakpx.com
+[IMAGE] "carousel" : www.peakpx.com
