@@ -195,4 +195,8 @@ footer {
   nav ul.hidden {
     display: none;
   }
+
+  .three {
+    padding-bottom: 10vh;
+  }
 }
