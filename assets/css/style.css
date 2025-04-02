@@ -200,3 +200,9 @@ footer {
     padding-bottom: 10vh;
   }
 }
+
+@media only screen and (max-width: 680px) {
+  .four {
+    height: fit-content;
+  }
+}
