@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   const server = {
     address: 'mc.hallux-survival.my.id',
-    port: 25654,
+    port: 25633,
   };
 
   const address = document.getElementById('address');
