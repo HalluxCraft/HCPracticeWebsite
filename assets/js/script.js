@@ -34,7 +34,7 @@ function initServerData(ip, port) {
   }
 
   fetchData();
-  setInterval(fetchData, 10000);
+  setInterval(fetchData, 5000);
 }
 
 const menuIcon = document.getElementById('menu-icon');
