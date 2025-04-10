@@ -27,4 +27,8 @@ pnpm-debug.log*
 
 # System files
 .DS_Store
+<<<<<<< HEAD
 Thumbs.db
+=======
+Thumbs.db
+>>>>>>> main
