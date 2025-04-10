@@ -1,2 +1,1 @@
-[IMAGE] "background" : www.peakpx.com
-[IMAGE] "carousel" : www.peakpx.com
+[ICONS] "discord" : https://icons8.com/icon/gxdxl0oMFoSA/discord-new
