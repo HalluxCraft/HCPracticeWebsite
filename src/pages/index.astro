@@ -1,0 +1,229 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hallux Craft</title>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="/android-icon-192x192.png"
+    />
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('/background-minecraft.png');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.1;
+        z-index: -1;
+      }
+      .badge {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+        margin-left: 0.5rem;
+      }
+      .badge-online {
+        background-color: #10b981;
+        color: white;
+      }
+      .badge-offline {
+        background-color: #ef4444;
+        color: white;
+      }
+      .fade-in {
+        opacity: 1 !important;
+        transition: opacity 1.5s ease-in-out;
+      }
+      #random-slogan {
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+      }
+      #random-slogan.show {
+        opacity: 1;
+      }
+      .server-info {
+        background-color: #1f2937;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        width: 100%;
+        max-width: 20rem;
+        margin: 0 auto;
+      }
+      .discord-icon {
+        filter: brightness(0) invert(1);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 text-white font-sans">
+    <main
+      id="main-content"
+      class="min-h-screen flex flex-col items-center justify-center p-6 pt-32 opacity-0"
+    >
+      <!-- Hero Section -->
+      <section class="text-center mb-20">
+        <img
+          src="/logo-256x256.png"
+          alt="Hallux Craft Logo"
+          class="w-32 h-32 mx-auto mb-6"
+        />
+        <h1 class="text-5xl font-bold mb-4 text-primary">Hallux Craft</h1>
+        <p id="random-slogan" class="text-lg mb-6 italic"></p>
+        <div class="server-info">
+          <p class="text-sm text-gray-300">
+            IP: <strong id="server-ip">mc.hallux-survival.my.id</strong>
+          </p>
+          <p class="text-sm text-gray-300">Port: <strong>25633</strong></p>
+          <p class="text-sm text-gray-300">
+            Online: <strong id="player-count">Loading...</strong>
+            <span id="online-badge" class="badge badge-offline hidden"
+              >Offline</span
+            >
+          </p>
+          <button
+            id="copy-ip"
+            class="mt-3 px-4 py-2 text-sm bg-blue-600 rounded hover:bg-blue-700 transition"
+            >Copy IP</button
+          >
+        </div>
+        <a
+          href="minecraft://?addExternalServer=Hallux%20Craft|mc.hallux-survival.my.id:25633"
+        >
+          <button
+            class="mt-6 px-6 py-2 bg-green-500 text-white font-semibold rounded hover:bg-green-600 transition"
+            >Join Now</button
+          >
+        </a>
+      </section>
+
+      <!-- Features Section -->
+      <section class="mb-20 max-w-md text-center" id="about">
+        <h2 class="text-2xl font-semibold mb-4 text-primary">Features</h2>
+        <ul class="list-disc list-inside text-gray-300 text-left">
+          <li>Pure Survival Experience</li>
+          <li>No Pay-to-Win</li>
+          <li>Community Focused</li>
+          <li>Friendly Players</li>
+        </ul>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center mt-20 text-sm text-gray-500 pb-8">
+      <div class="flex justify-center space-x-6 mb-4">
+        <a
+          href="https://discord.gg/cHJkDRs"
+          aria-label="Discord"
+          target="_blank"
+          rel="noopener"
+        >
+          <img
+            src="/icons/discord.svg"
+            alt="Discord"
+            class="w-8 h-8 hover:scale-110 transition-transform duration-300 discord-icon"
+          />
+        </a>
+      </div>
+      <p class="text-sm text-gray-400 mt-2">
+        &copy; <span id="year"></span> Hallux Craft. All rights reserved.
+      </p>
+    </footer>
+
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+      const badge = document.getElementById('online-badge');
+
+      async function fetchPlayerCount() {
+        const ip = 'mc.hallux-survival.my.id';
+        const port = 25633;
+        try {
+          const res = await fetch(
+            'https://api.mcstatus.io/v2/status/bedrock/' + ip + ':' + port
+          );
+          const data = await res.json();
+          const playerCount = data.players?.online ?? 'Offline';
+          const maxPlayers = data.players?.max ?? null;
+
+          document.getElementById('player-count').textContent =
+            maxPlayers !== null
+              ? `${playerCount} / ${maxPlayers}`
+              : playerCount;
+
+          if (typeof playerCount === 'number') {
+            badge.textContent = 'Online';
+            badge.className = 'badge badge-online';
+          } else {
+            badge.textContent = 'Offline';
+            badge.className = 'badge badge-offline';
+          }
+        } catch (e) {
+          document.getElementById('player-count').textContent = 'Unavailable';
+          badge.textContent = 'Offline';
+          badge.className = 'badge badge-offline';
+        }
+
+        badge.classList.remove('hidden');
+      }
+
+      fetchPlayerCount();
+      setInterval(fetchPlayerCount, 10000);
+
+      document.getElementById('copy-ip').addEventListener('click', function () {
+        const ip = document.getElementById('server-ip').textContent;
+        navigator.clipboard.writeText(ip).then(() => {
+          const btn = document.getElementById('copy-ip');
+          btn.textContent = 'Copied!';
+          setTimeout(() => {
+            btn.textContent = 'Copy IP';
+          }, 2000);
+        });
+      });
+
+      const slogans = [
+        'Where Survival Becomes Legacy — Tempat bertahan hidup menjadi warisan',
+        'Survive, Thrive, Make History — Bertahan, berkembang, dan ciptakan sejarah',
+        'Your Journey Starts Here — Perjalananmu dimulai di sini',
+        'Craft Your Destiny in Survival — Bentuk takdirmu di dunia survival',
+        'Survival is Just the Beginning — Survival hanyalah permulaan',
+        'Where Adventures Never End — Tempat petualangan tak pernah berakhir',
+        'Build, Survive, Belong — Bangun, bertahan, menjadi bagian',
+        'Forge Your Legend Block by Block — Tempa legendamu satu blok demi blok',
+        "Not Just Survival — It's Home — Bukan sekadar survival — ini rumahmu",
+      ];
+
+      const sloganElement = document.getElementById('random-slogan');
+
+      function updateSlogan() {
+        sloganElement.classList.remove('show');
+        setTimeout(() => {
+          const random = slogans[Math.floor(Math.random() * slogans.length)];
+          sloganElement.textContent = random;
+          sloganElement.classList.add('show');
+        }, 300);
+      }
+
+      updateSlogan();
+      setInterval(updateSlogan, 4500);
+
+      window.onload = function () {
+        const main = document.getElementById('main-content');
+        main.classList.add('fade-in');
+      };
+    </script>
+  </body>
+</html>
