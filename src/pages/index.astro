@@ -88,7 +88,7 @@
           <p class="text-sm text-gray-300">
             IP: <strong id="server-ip">mc.hallux-survival.my.id</strong>
           </p>
-          <p class="text-sm text-gray-300">Port: <strong>25633</strong></p>
+          <p class="text-sm text-gray-300">Port: <strong>25617</strong></p>
           <p class="text-sm text-gray-300">
             Online: <strong id="player-count">Loading...</strong>
             <span id="online-badge" class="badge badge-offline hidden"
@@ -102,7 +102,7 @@
           >
         </div>
         <a
-          href="minecraft://?addExternalServer=Hallux%20Craft|mc.hallux-survival.my.id:25633"
+          href="minecraft://?addExternalServer=Hallux%20Craft|mc.hallux-survival.my.id:25617"
         >
           <button
             class="mt-6 px-6 py-2 bg-green-500 text-white font-semibold rounded hover:bg-green-600 transition"
@@ -150,7 +150,7 @@
 
       async function fetchPlayerCount() {
         const ip = 'mc.hallux-survival.my.id';
-        const port = 25633;
+        const port = 25617;
         try {
           const res = await fetch(
             'https://api.mcstatus.io/v2/status/bedrock/' + ip + ':' + port
